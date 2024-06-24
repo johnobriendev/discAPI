@@ -44,10 +44,11 @@ exports.discinstance_create_get = asyncHandler(async(req, res, next) =>{
 // create post
 exports.discinstance_create_post = [
   body("disc", "Disc must be specified").escape(),
-  body("plastic", "Imprint must be specified")
+  body("plastic", "Plastic must be specified")
     .escape(),
   body("weight", "Weight must be specified").isNumeric({min: 130, max: 180}).escape(),
   body("color", "Color must be specified").escape(),
+  body("price", "Price must be specified").isNumeric({min: 0}).escape(),
     
 
   // Process request after validation and sanitization.
@@ -61,6 +62,7 @@ exports.discinstance_create_post = [
       plastic: req.body.plastic,
       weight: req.body.weight,
       color: req.body.color,
+      price: req.body.price,
     });
 
     if (!errors.isEmpty()) {
@@ -132,6 +134,7 @@ exports.discinstance_update_post = [
     .escape(),
   body("weight", "Weight must be specified").isNumeric({min: 130, max: 180}).escape(),
   body("color", "Color must be specified").escape(),
+  body("price", "Price must be specified").isNumeric({min: 0}).escape(),
     
 
   // Process request after validation and sanitization.
@@ -145,6 +148,7 @@ exports.discinstance_update_post = [
       plastic: req.body.plastic,
       weight: req.body.weight,
       color: req.body.color,
+      price: req.body.price,
       _id: req.params.id,
     });
 
