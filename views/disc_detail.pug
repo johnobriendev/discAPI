@@ -1,0 +1,24 @@
+extends layout 
+
+block content   
+  h1 #{disc.manufacturer.name + " " + disc.name}
+
+  p #[strong Speed:] #{disc.speed}
+  p #[strong Glide:] #{disc.glide}
+  p #[strong Turn:] #{disc.turn}
+  p #[strong Fade:] #{disc.fade}
+
+  h3 What's in stock
+
+  ul
+    each instance in disc_instances
+      li  
+        a(href=instance.url) #{instance.plastic + " " + instance.disc.name + " " + instance.color + " " + instance.weight + "g"}
+
+  hr
+  p
+   a(href=disc.url+'/delete') Delete Disc
+
+
+  p
+   a(href=disc.url+'/update') Update Disc

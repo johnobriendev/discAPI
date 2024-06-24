@@ -1,0 +1,70 @@
+extends layout
+
+block content
+  h1= title
+
+  form(method='POST')
+    div.form-group
+      label(for='name') Disc Name:
+      input#name.form-control(type='text', placeholder='Name of disc' name='name' required value=(undefined===disc ? '' : disc.name) )
+    div.form-group
+      label(for='manufacturer') Manufacturer:
+      select#manufacturer.form-control(name='manufacturer' required)
+        option(value='') --Please select an manufacturer--
+        for manufacturer in manufacturers
+          if book
+            if manufacturer._id.toString()===book.manufacturer._id.toString()
+              option(value=manufacturer._id selected) #{manufacturer.name}
+            else
+              option(value=manufacturer._id) #{manufacturer.name}
+          else
+            option(value=manufacturer._id) #{manufacturer.name}
+    div.form-group
+      label Disctype:
+      div
+        for disctype in disctypes
+          div(style='display: inline; padding-right:10px;')
+            if disctype.checked
+              input.checkbox-input(type='radio', name='disctype', id=disctype._id, value=disctype._id, checked)
+            else
+              input.checkbox-input(type='radio', name='disctype', id=disctype._id, value=disctype._id)
+            label(for=disctype._id) &nbsp;#{disctype.name}
+    
+    
+    div.form-group
+      label(for='speed') Speed:
+      select#speed.form-control(name='speed' required)
+        option(value='') --Select Speed--
+        for i in Array.from({length: 14}, (_, index) => index + 1)
+          option(value=i)= i
+
+    
+    div.form-group
+      label(for='glide') Glide:
+      select#glide.form-control(name='glide' required)
+        option(value='') --Select Glide--
+        for i in Array.from({length: 6}, (_, index) => index + 1)
+          option(value=i)= i
+
+    
+    div.form-group
+      label(for='turn') Turn:
+      select#turn.form-control(name='turn' required)
+        option(value='') --Select Turn--
+        for i in Array.from({length: 7}, (_, index) => index - 5)
+          option(value=i)= i
+
+    
+    div.form-group
+      label(for='fade') Fade:
+      select#fade.form-control(name='fade' required)
+        option(value='') --Select Fade--
+        for i in Array.from({length: 6}, (_, index) => index)
+          option(value=i)= i
+
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

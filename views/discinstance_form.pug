@@ -1,0 +1,41 @@
+extends layout    
+
+block content 
+
+  h1=title 
+
+  form(method='POST')
+    div.form-group
+      label(for='disc') Disc:
+      select#disc.form-control(name='disc' required)
+        option(value='') --Please select a disc--
+        for disc in disc_list
+          if selected_disc==disc._id.toString()
+            option(value=disc._id, selected) #{disc.name}
+          else
+            option(value=disc._id) #{disc.name}
+    div.form-group
+      label(for='plastic') Plastic:
+      select#plastic.form-control(name='plastic' required)
+        option(value='') --Please select a plastic--
+        each plastic in ["DX", "Pro", "Champion", "Star", "GStar", "Halo Star"]
+          if selected_plastic==plastic
+            option(value=plastic, selected)= plastic
+          else
+            option(value=plastic)= plastic
+
+    div.form-group
+      label(for='weight') Weight (130-180 g):
+      input#weight.form-control(type='number', name='weight', min='130', max='180', required value=(undefined===discinstance ? '' : discinstance.weight))
+
+    div.form-group
+      label(for='color') Color:
+      input#color.form-control(type='text', name='color', placeholder='Enter color' required value=(undefined===discinstance ? '' : discinstance.color))
+
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
+  

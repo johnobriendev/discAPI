@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+  h1 #{title}: #{disc.name}
+  
+
+  if disc_instances.length
+
+    p #[strong Delete the following disc copies before attempting to delete this disc.]
+    div(style='margin-left:20px;margin-top:20px')
+      h4 Discs
+      dl
+        each instance in disc_instances
+          dt
+            a(href=instance.url) #{instance.plastic + " " + instance.color + " " + instance.disc.name + " " + instance.weight +"g"}
+          
+
+  else
+    p Do you really want to delete this disc?
+
+    form(method='POST')
+      div.form-group
+        input#discid.form-control(type='hidden', name='discid', value=disc._id )
+
+      button.btn.btn-primary(type='submit') Delete

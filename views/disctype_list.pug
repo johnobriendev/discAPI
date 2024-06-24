@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+  h1= title 
+
+  if disctype_list.length 
+    ul 
+      each disctype in disctype_list 
+        li 
+          a(href=disctype.url) #{disctype.name}
+
+  else 
+    p No disc categories. Sad.

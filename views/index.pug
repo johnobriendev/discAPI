@@ -1,0 +1,13 @@
+extends layout 
+
+block content   
+  h1= title 
+  p Welcome to the Disc Inventory Homepage 
+
+  p Here is the number of items in each category 
+
+  ul  
+    li #[strong Discs:] !{disc_count}
+    li #[strong Total Copies:] !{disc_instance_count}
+    li #[strong Manufacturers:] !{manufacturer_count}
+    li #[strong Disc Categories:] !{disctype_count}

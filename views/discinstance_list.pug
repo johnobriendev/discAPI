@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+  h1= title 
+
+  if discinstance_list.length 
+    ul 
+      each instance in discinstance_list 
+        li 
+          a(href=instance.url) #{instance.plastic}  #{instance.disc.name} #{instance.color}  #{instance.weight}g
+  
+  else 
+    p There are no discs in stock. Sad.

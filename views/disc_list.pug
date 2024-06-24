@@ -1,0 +1,12 @@
+extends layout 
+
+block content 
+  h1=title 
+  if disc_list.length 
+    ul 
+      each disc in disc_list 
+        li  
+          a(href=disc.url) #{disc.manufacturer.name + " " + disc.name}
+
+  else 
+    p There are no discs

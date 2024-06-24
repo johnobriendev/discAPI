@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+
+  h1= title 
+
+  p #[strong Color:] #{discinstance.color} 
+  p #[strong Weight:] #{discinstance.weight + "g"}
+
+  hr
+  p
+   a(href=discinstance.url+'/delete') Delete discinstance
+
+  p
+   a(href=discinstance.url+'/update') Update discinstance

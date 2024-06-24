@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+  h1 #{title}: #{manufacturer.name}
+  
+
+  if manufacturer_discs.length
+
+    p #[strong Delete the following discs before attempting to delete this Manufacturer.]
+    div(style='margin-left:20px;margin-top:20px')
+      h4 Discs
+      dl
+        each disc in manufacturer_discs
+          dt
+            a(href=disc.url) #{disc.name}
+          
+
+  else
+    p Do you really want to delete this Manufacturer?
+
+    form(method='POST')
+      div.form-group
+        input#manufacturerid.form-control(type='hidden', name='manufacturerid', value=manufacturer._id )
+
+      button.btn.btn-primary(type='submit') Delete

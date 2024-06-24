@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+  h1 #{title}: #{disctype.name}
+  
+
+  if disctype_discs.length
+
+    p #[strong Delete the following discs before attempting to delete this disctype.]
+    div(style='margin-left:20px;margin-top:20px')
+      h4 Discs
+      dl
+        each disc in disctype_discs
+          dt
+            a(href=disc.url) #{disc.name}
+          
+
+  else
+    p Do you really want to delete this disctype?
+
+    form(method='POST')
+      div.form-group
+        input#disctypeid.form-control(type='hidden', name='disctypeid', value=disctype._id )
+
+      button.btn.btn-primary(type='submit') Delete
