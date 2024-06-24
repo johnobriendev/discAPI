@@ -32,6 +32,11 @@ block content
       label(for='color') Color:
       input#color.form-control(type='text', name='color', placeholder='Enter color' required value=(undefined===discinstance ? '' : discinstance.color))
 
+    div.form-group
+      label(for='price') Price:
+      input#price.form-control(type='number', name='price', required value=(undefined===discinstance ? '' : discinstance.price))
+
+
     button.btn.btn-primary(type='submit') Submit
 
   if errors
