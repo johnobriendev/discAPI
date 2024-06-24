@@ -6,6 +6,9 @@ const DiscinstanceSchema = new Schema({
   plastic: {type: String, required: true, enum: ["DX", "Pro", "Champion", "Star", "GStar", "Halo Star"]},
   weight: {type: Number, required: true, minLength: 130, maxLength: 180},
   color: {type: String, required: true,},
+  price: { type: Number, required: true }, 
+  photo: { type: String },
+
 })
 
 DiscinstanceSchema.virtual("url").get(function () {
