@@ -42,6 +42,7 @@ exports.discinstance_create_get = asyncHandler(async(req, res, next) =>{
   res.render("discinstance_form", {
     title: "Create instance of disc",
     disc_list: allDiscs,
+    discinstance: { published: false }, // Provide an object with a default published value
   })
 });
 // create post
