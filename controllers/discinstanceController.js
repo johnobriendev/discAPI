@@ -2,6 +2,7 @@ const Discinstance = require("../models/discinstance");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Disc = require("../models/disc");
+const upload = require('../config/s3');
 
 
 
@@ -43,6 +44,7 @@ exports.discinstance_create_get = asyncHandler(async(req, res, next) =>{
 });
 // create post
 exports.discinstance_create_post = [
+  upload.single('photo'),
   body("disc", "Disc must be specified").escape(),
   body("plastic", "Plastic must be specified")
     .escape(),
@@ -63,6 +65,7 @@ exports.discinstance_create_post = [
       weight: req.body.weight,
       color: req.body.color,
       price: req.body.price,
+      photo: req.file ? req.file.location : null, // Store the S3 URL
     });
 
     if (!errors.isEmpty()) {
@@ -129,6 +132,7 @@ exports.discinstance_update_get = asyncHandler(async(req, res, next) =>{
 });
 //update post
 exports.discinstance_update_post = [
+  upload.single('photo'),
   body("disc", "Disc must be specified").escape(),
   body("plastic", "Imprint must be specified")
     .escape(),
@@ -151,6 +155,10 @@ exports.discinstance_update_post = [
       price: req.body.price,
       _id: req.params.id,
     });
+
+    if (req.file) {
+      updatedData.photo = req.file.location; // Update photo URL if a new photo is uploaded
+    }
 
     if (!errors.isEmpty()) {
       // There are errors.

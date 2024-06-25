@@ -4,7 +4,7 @@ block content
 
   h1=title 
 
-  form(method='POST')
+  form(method='POST', enctype='multipart/form-data' )
     div.form-group
       label(for='disc') Disc:
       select#disc.form-control(name='disc' required)
