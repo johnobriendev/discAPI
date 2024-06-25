@@ -9,6 +9,7 @@ const DiscinstanceSchema = new Schema({
   price: { type: Number, required: true }, 
   photo: { type: String },
   photoKey: { type: String }, //s3 object key
+  published: { type: Boolean, default: false },
 
 })
 
