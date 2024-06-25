@@ -2,7 +2,9 @@ const Discinstance = require("../models/discinstance");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Disc = require("../models/disc");
-const upload = require('../config/s3');
+const {upload, deleteS3Object} = require('../config/s3');
+
+
 
 
 
@@ -66,6 +68,7 @@ exports.discinstance_create_post = [
       color: req.body.color,
       price: req.body.price,
       photo: req.file ? req.file.location : null, // Store the S3 URL
+      photoKey: req.file.key,
     });
 
     if (!errors.isEmpty()) {
@@ -88,6 +91,8 @@ exports.discinstance_create_post = [
     }
   }),
 ];
+
+
 //delete get
 exports.discinstance_delete_get = asyncHandler(async(req, res, next) =>{
   const discinstance = await Discinstance.findById(req.params.id).populate("disc").exec();
@@ -102,9 +107,20 @@ exports.discinstance_delete_get = asyncHandler(async(req, res, next) =>{
     discinstance: discinstance,
   });
 });
+
+
 //delete post
 exports.discinstance_delete_post = asyncHandler(async(req, res, next) =>{
-  await Discinstance.findByIdAndDelete(req.body.id);
+  const discinstance = await Discinstance.findByIdAndDelete(req.body.id);
+
+  if (discinstance) {
+    // Delete the photo from S3
+    await deleteS3Object(discinstance.photoKey);
+
+    // Delete the disc instance from the database
+    await Discinstance.findByIdAndDelete(req.body.id);
+  }
+
   res.redirect("/catalog/discinstances");
 });
 //update get
@@ -153,6 +169,8 @@ exports.discinstance_update_post = [
       weight: req.body.weight,
       color: req.body.color,
       price: req.body.price,
+      photo: req.file ? req.file.location : null, // Store the S3 URL
+      photoKey: req.file.key,
       _id: req.params.id,
     });
 

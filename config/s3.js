@@ -1,5 +1,5 @@
-const { S3Client } = require('@aws-sdk/client-s3');
-const AWS = require('aws-sdk');
+const { S3Client, DeleteObjectCommand } = require('@aws-sdk/client-s3');
+// const AWS = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const path = require('path');
@@ -57,6 +57,19 @@ const upload = multer({
   }
 });
 
+const deleteS3Object = async (key) => {
+  const deleteParams = {
+    Bucket: process.env.S3_BUCKET_NAME,
+    Key: key
+  };
+
+  try {
+    await s3.send(new DeleteObjectCommand(deleteParams));
+    console.log(`Successfully deleted ${key} from ${process.env.S3_BUCKET_NAME}`);
+  } catch (error) {
+    console.error(`Error deleting ${key} from ${process.env.S3_BUCKET_NAME}:`, error);
+  }
+};
 
 
-module.exports = upload;
+module.exports = { upload, deleteS3Object };
