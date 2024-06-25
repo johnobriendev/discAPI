@@ -53,6 +53,7 @@ exports.discinstance_create_post = [
   body("weight", "Weight must be specified").isNumeric({min: 130, max: 180}).escape(),
   body("color", "Color must be specified").escape(),
   body("price", "Price must be specified").isFloat({min: 0}).escape(),
+  body('published').toBoolean(),
     
 
   // Process request after validation and sanitization.
@@ -69,6 +70,7 @@ exports.discinstance_create_post = [
       price: parseFloat(req.body.price),
       photo: req.file ? req.file.location : null, // Store the S3 URL
       photoKey: req.file.key,
+      published: req.body.published,
     });
 
     if (!errors.isEmpty()) {
@@ -155,6 +157,7 @@ exports.discinstance_update_post = [
   body("weight", "Weight must be specified").isNumeric({min: 130, max: 180}).escape(),
   body("color", "Color must be specified").escape(),
   body("price", "Price must be specified").isFloat({min: 0}).escape(),
+  body('published').toBoolean(),
     
 
   // Process request after validation and sanitization.
@@ -171,6 +174,7 @@ exports.discinstance_update_post = [
       price: parseFloat(req.body.price),
       photo: req.file ? req.file.location : null, // Store the S3 URL
       photoKey: req.file.key,
+      published: req.body.published,
       _id: req.params.id,
     });
 
