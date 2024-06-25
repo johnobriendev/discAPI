@@ -40,6 +40,11 @@ block content
     label(for='photo') Photo:
     input#photo.form-control(type='file', name='photo',)
 
+    div.form-group
+      label(for='published') Published:
+      input#published.form-control(type='checkbox', name='published', checked=(discinstance.published ? 'checked' : ''))
+    
+
 
     button.btn.btn-primary(type='submit') Submit
 
