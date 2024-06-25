@@ -52,7 +52,7 @@ exports.discinstance_create_post = [
     .escape(),
   body("weight", "Weight must be specified").isNumeric({min: 130, max: 180}).escape(),
   body("color", "Color must be specified").escape(),
-  body("price", "Price must be specified").isNumeric({min: 0}).escape(),
+  body("price", "Price must be specified").isFloat({min: 0}).escape(),
     
 
   // Process request after validation and sanitization.
@@ -66,7 +66,7 @@ exports.discinstance_create_post = [
       plastic: req.body.plastic,
       weight: req.body.weight,
       color: req.body.color,
-      price: req.body.price,
+      price: parseFloat(req.body.price),
       photo: req.file ? req.file.location : null, // Store the S3 URL
       photoKey: req.file.key,
     });
@@ -154,7 +154,7 @@ exports.discinstance_update_post = [
     .escape(),
   body("weight", "Weight must be specified").isNumeric({min: 130, max: 180}).escape(),
   body("color", "Color must be specified").escape(),
-  body("price", "Price must be specified").isNumeric({min: 0}).escape(),
+  body("price", "Price must be specified").isFloat({min: 0}).escape(),
     
 
   // Process request after validation and sanitization.
@@ -168,7 +168,7 @@ exports.discinstance_update_post = [
       plastic: req.body.plastic,
       weight: req.body.weight,
       color: req.body.color,
-      price: req.body.price,
+      price: parseFloat(req.body.price),
       photo: req.file ? req.file.location : null, // Store the S3 URL
       photoKey: req.file.key,
       _id: req.params.id,
