@@ -34,7 +34,7 @@ block content
 
     div.form-group
       label(for='price') Price:
-      input#price.form-control(type='number', name='price', required value=(undefined===discinstance ? '' : discinstance.price))
+      input#price.form-control(type='number', step='0.01', name='price', required value=(undefined===discinstance ? '' : discinstance.price))
 
     div.form-group
     label(for='photo') Photo:
