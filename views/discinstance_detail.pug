@@ -8,6 +8,11 @@ block content
   p #[strong Weight:] #{discinstance.weight + "g"}
   p #[strong Price:] #{"$" + discinstance.price}
 
+  if discinstance.photo
+    p
+      img(src=discinstance.photo alt='Disc Photo' width='300')
+
+
   hr
   p
    a(href=discinstance.url+'/delete') Delete discinstance
