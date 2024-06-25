@@ -42,7 +42,7 @@ block content
 
     div.form-group
       label(for='published') Published:
-      input#published.form-control(type='checkbox', name='published', checked=(discinstance.published ? 'checked' : ''))
+      input#published.form-control(type='checkbox', name='published', checked=(discinstance && discinstance.published ? 'checked' : ''))
     
 
 
