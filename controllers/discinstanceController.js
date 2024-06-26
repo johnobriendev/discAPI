@@ -6,17 +6,39 @@ const {upload, deleteS3Object} = require('../config/s3');
 
 
 
+// Display list of all discinstances.
+exports.discinstance_list = asyncHandler(async (req, res, next) => {
+  try {
+    const allDiscInstances = await Discinstance.find().populate('disc').exec();
+
+    // Check the 'Accept' header to determine the response type
+    const acceptHeader = req.headers['accept'];
+    if (acceptHeader && acceptHeader.includes('application/json')) {
+      // Respond with JSON for API requests
+      res.json(allDiscInstances);
+    } else {
+      // Render HTML for admin front end
+      res.render("discinstance_list", {
+        title: "Discs in Stock",
+        discinstance_list: allDiscInstances,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 
 // Display list of all discinstances.
-exports.discinstance_list = asyncHandler(async (req, res, next) => {
-  const allDiscInstances = await Discinstance.find().populate('disc').exec();
+// exports.discinstance_list = asyncHandler(async (req, res, next) => {
+//   const allDiscInstances = await Discinstance.find().populate('disc').exec();
 
-  res.render("discinstance_list", {
-    title: "Discs in Stock",
-    discinstance_list: allDiscInstances,
-  });
-});
+//   res.render("discinstance_list", {
+//     title: "Discs in Stock",
+//     discinstance_list: allDiscInstances,
+//   });
+// });
 
 // Display detail page for a specific discinstance.
 exports.discinstance_detail = asyncHandler(async (req, res, next) => {

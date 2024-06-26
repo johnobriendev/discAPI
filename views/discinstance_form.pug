@@ -18,7 +18,7 @@ block content
       label(for='plastic') Plastic:
       select#plastic.form-control(name='plastic' required)
         option(value='') --Please select a plastic--
-        each plastic in ["DX", "Pro", "KC Pro", "JK Pro", "Champion", "Star", "GStar", "Halo Star"]
+        each plastic in ["DX", "Pro", "KC Pro", "JK Pro", "Champion", "Star", "GStar", "Halo Star", "C-Line"]
           if selected_plastic==plastic
             option(value=plastic, selected)= plastic
           else
