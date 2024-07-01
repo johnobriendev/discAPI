@@ -9,7 +9,16 @@ const {upload, deleteS3Object} = require('../config/s3');
 // Display list of all discinstances.
 exports.discinstance_list = asyncHandler(async (req, res, next) => {
   try {
-    const allDiscInstances = await Discinstance.find().populate('disc').exec();
+    
+    const allDiscInstances = await Discinstance.find()
+      .populate({
+        path: 'disc',
+        populate: {
+          path: 'disctype',
+        },
+      })
+      .exec();
+    // const allDiscInstances = await Discinstance.find().populate('disc').exec();
 
     // Check the 'Accept' header to determine the response type
     const acceptHeader = req.headers['accept'];
