@@ -45,6 +45,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+      imgSrc: ["'self'", 'https://discapiphotos.s3.us-east-2.amazonaws.com'],
     },
   }),
 );
