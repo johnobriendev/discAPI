@@ -197,7 +197,7 @@ exports.discinstance_update_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a BookInstance object with escaped and trimmed data.
+   
     const discInstance = new Discinstance({
       disc: req.body.disc,
       plastic: req.body.plastic,
@@ -205,7 +205,8 @@ exports.discinstance_update_post = [
       color: req.body.color,
       price: parseFloat(req.body.price),
       photo: req.file ? req.file.location : null, // Store the S3 URL
-      photoKey: req.file.key,
+      // photoKey: req.file.key,
+      photoKey: req.body.photoKey,
       published: req.body.published,
       _id: req.params.id,
     });
