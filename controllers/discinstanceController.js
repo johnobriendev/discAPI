@@ -178,6 +178,8 @@ exports.discinstance_update_get = asyncHandler(async(req, res, next) =>{
     discinstance: discInstance,
     selected_disc: discInstance.disc._id.toString(),
     selected_plastic: discInstance.plastic,
+    photoKey: discInstance.photoKey, // Pass photoKey to the view
+    photo: discInstance.photo // Pass the current photo URL to the view
   });
 });
 //update post
@@ -197,6 +199,9 @@ exports.discinstance_update_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
+    const existingDiscInstance = await Discinstance.findById(req.params.id);
+
+
    
     const discInstance = new Discinstance({
       disc: req.body.disc,
@@ -204,15 +209,17 @@ exports.discinstance_update_post = [
       weight: req.body.weight,
       color: req.body.color,
       price: parseFloat(req.body.price),
-      photo: req.file ? req.file.location : null, // Store the S3 URL
-      // photoKey: req.file.key,
-      photoKey: req.body.photoKey,
+      // photo: req.file ? req.file.location : existingDiscInstance.photo, // Store the S3 URL
+      // // photoKey: req.file.key,
+      // photoKey: req.body.photoKey,
+      photo: req.file ? req.file.location : existingDiscInstance.photo, // Retain the existing photo if no new photo is uploaded
+      photoKey: req.file ? req.file.key : existingDiscInstance.photoKey, // Update photoKey if a new photo is uploaded
       published: req.body.published,
       _id: req.params.id,
     });
 
     if (req.file) {
-      updatedData.photo = req.file.location; // Update photo URL if a new photo is uploaded
+      discInstance.photo = req.file.location; // Update photo URL if a new photo is uploaded
     }
 
     if (!errors.isEmpty()) {

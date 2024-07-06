@@ -39,13 +39,17 @@ block content
     div.form-group
     label(for='photo') Photo:
     input#photo.form-control(type='file', name='photo',)
+    if photo
+        img(src=photo alt='Current photo' width='200')
+
 
     div.form-group
       label(for='published') Published:
       input#published.form-control(type='checkbox', name='published', checked=(discinstance && discinstance.published ? 'checked' : undefined))
     
-
-
+    
+    input(type='hidden', name='photoKey', value=photoKey)
+    
     button.btn.btn-primary(type='submit') Submit
 
   if errors
