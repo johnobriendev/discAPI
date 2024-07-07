@@ -7,10 +7,11 @@ const cors = require('cors');
 const passport = require('passport');
 const compression = require("compression");
 const helmet = require("helmet");
+const bcrypt = require('bcryptjs');
 
 
 var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
+
 require('dotenv').config();
 const catalogRouter = require("./routes/catalog");
 
@@ -58,7 +59,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+
 app.use("/catalog", catalogRouter);
 
 // catch 404 and forward to error handler
