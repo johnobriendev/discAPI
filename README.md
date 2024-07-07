@@ -1,7 +1,9 @@
 # Disc Inventory API
 
-This is the backend API for the disc inventory management system. It is built with Express, MongoDB, and AWS S3. This projects serves as an Admin portal for an inventory of a Disc Golf Store, where the admin can create manufacturers, disc types, discs, and instances of a disc. The Admin view allows the admin to populate the mongoDB database with this information. It also serves as API for the frontend display of an E-Commerce page for the disc golf store, where the discs stored in the database are displayed forsale with all of their characteristics. 
+This is the backend API for the disc inventory management system. It is built with Express, MongoDB, and AWS S3. This projects serves as an Admin portal for an inventory of a Disc Golf Store, where the admin can create manufacturers, disc types, discs, and instances of a disc. The Admin view allows the admin to populate the mongoDB database with this information after logging in with a username and password. The admin routes are protected with JWT authentication. It also serves as API for the frontend display of an E-Commerce page for the disc golf store, where the discs stored in the database are displayed forsale with all of their characteristics. 
+
 The admin view can be found here: [Link](https://debonair-rounded-opinion.glitch.me/catalog)
+
 The frontend for the E-Commerce store can be found here: [Link](https://barrysdiscs.netlify.app/)
 
 ## Getting Started
